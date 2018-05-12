@@ -5,7 +5,7 @@ import json
 from multiprocessing import Pool
 
 
-# 用来爬取realestate信息
+# 用来爬取realestate信息,得到单个网页信息
 def get_one_page(url):
     try:
         response = requests.get(url)
