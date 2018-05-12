@@ -12,11 +12,15 @@ def indexView(request):
     return render(request,template_name)
 
 def getData(request):
+    print('hahahha')
     data = real_estate_crawler.gather_information(1)
     page = data[0]
     agent_img=page['agentPic']
+    print(agent_img)
+    house_type = page['houseType']
+    print(house_type)
     showDataTemplate='webapp/showData.html'
-    return render(request, showDataTemplate, {'page': page}, {'agent_img': agent_img})
+    return render(request, showDataTemplate, {'page': page, 'agent_img': agent_img, 'house_type': house_type})
 
 
 def search_basic(request):
