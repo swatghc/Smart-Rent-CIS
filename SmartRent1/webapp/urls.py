@@ -9,5 +9,7 @@ app_name = 'webapp'
 
 urlpatterns = [
     path('index/',views.indexView,name='index'),
+    path('showData/',views.getProperty,name='showData'),
+
 
 ]
