@@ -62,21 +62,22 @@
 
                         <!--Search Bar-->
 
+                        <form class="" action="/webapp/search-basic/" method="post">
 
-                             <div class="col-lg-6 col-sm-6 col-sm-offset-3">
+                             <div class="col-lg-6 col-sm-4 col-sm-offset-3">
                                 <div id="imaginary_container">
-                                    <div class="input-group stylish-input-group">
+                                    <div class="input-group stylish-input-group ">
 
-                                         <form class="" action="/search_basic" method="post">
+
                                              {% csrf_token %}
 
-                                             <input id="search" type="text" class="form-control" name="search-input" placeholder="Search Your Uni" >
+                                             <input id="search" type="text" class="form-control" name="basic-input" placeholder="Search Your Uni" >
                                              <span class="input-group-addon">
-                                             <button type="submit" value="OK">
-                                                <span class="glyphicon glyphicon-search"></span>
-                                             </button>
+                                                <button type="submit" value="Submit">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
                                              </span>
-                                         </form>
+                          </form>
 
                                     </div>
                                 </div>
@@ -112,22 +113,22 @@
                       <div class="well">
                       <h3 align="center">Search Filter</h3>
 
-                        <form class="form-horizontal" action="search_advanced" method="post" >
+                        <form class="form-horizontal" action="/webapp/search-advanced/" method="post" >
                             {% csrf_token %}
                           <div class="form-group">
                             <label for="location1" class="control-label">University</label>
-                            <select class="form-control" name="uni-name" id="location1">
-                              <option value="">Any</option>
-                              <option value="">University of Melbourne</option>
-                              <option value="">RMIT University</option>
+                            <select class="form-control" name="uni-name" id="location1" value="Any">
+                              <option value="Any">Any</option>
+                              <option value="University of Melbourne">University of Melbourne</option>
+                              <option value="RMIT University">RMIT University</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label for="type1" class="control-label">Type</label>
-                            <select class="form-control" name="house-type" id="type1">
-                              <option value="">Any</option>
-                              <option value="">House</option>
-                              <option value="">Apartment</option>
+                            <select class="form-control" name="house-type" id="type1" value="Any">
+                              <option value="Any">Any</option>
+                              <option value="House">House</option>
+                              <option value="Apartment">Apartment</option>
                             </select>
                           </div>
                           <div class="form-group">
@@ -144,7 +145,8 @@
                               <input type="text" class="form-control" name="bed-num" id="priceto" aria-describedby="basic-addon1">
                             </div>
                           </div>
-                          <p class="text-center"><a href="#" class="btn btn-danger glyphicon glyphicon-search" role="button"></a></p>
+                          <button type="submit" class="btn btn-danger glyphicon glyphicon-search" value="Submit"></button>
+                          <!--<p class="text-center"><a href="#" class="btn btn-danger glyphicon glyphicon-search" role="button"></a></p>-->
                         </form>
                       </div>
                 </div>

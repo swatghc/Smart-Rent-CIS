@@ -4,10 +4,41 @@ from django.views.generic import View
 from django.shortcuts import render, get_object_or_404
 #from .models import Property
 from realestate_crawler import real_estate_crawler
+from django.views.decorators import csrf
+
 # Create your views here.
 def indexView(request):
     template_name = "webapp/index.html"
     return render(request,template_name)
+
+def search_basic(request):
+    if request.POST:
+        searhInput = request.POST['basic-input']
+        print('--------------')
+        print(searhInput)
+        print('--------------')
+
+        searchResultTemplate='webapp/searchBasic.html'
+
+        return render(request,searchResultTemplate,{'searhInput':searhInput})
+
+def search_advanced(request):
+    if request.POST:
+        advanced_input = {
+            'uniName': request.POST['uni-name'],
+            'houseType': request.POST['house-type'],
+            'maxPrice': request.POST['max-price'],
+            'bedNum': request.POST['bed-num']
+        }
+        print('***************')
+        print(advanced_input)
+        print('***************')
+        searchResultTemplate = 'webapp/searchAdvanced.html'
+        return render(request,searchResultTemplate,{'advanced_input':advanced_input})
+
+
+
+
 
 #def getProperty(request):
 
@@ -15,7 +46,7 @@ def indexView(request):
 def saveToTable(request) :
     propertyInLine = real_estate_crawler.gather_information(1)
     print(propertyInLine)
-    size = len(propertyInline)
+    size = len(propertyInLine)
     pList = [None]*size
     # pList is the list of properties in the format of objects. the objects have the attributes such as address and rulDetail
 
