@@ -5,7 +5,7 @@ import json
 from multiprocessing import Pool
 
 
-# 用来爬取realestate信息
+# 用来爬取realestate信息,获取单个页面信息
 def get_one_page(url):
     try:
         response = requests.get(url)
@@ -20,6 +20,7 @@ def parse_one_page(html):
 
     # re.S 表示可以匹配任意的字符
     pattern = re.compile('data-featured-status.*?<a href="(.*?)" >' +
+                         '.*?property-(.*?)-'
                          '.*?data-src="(.*?)"' +
                          '.*?agent-photo" src="(.*?)"' +
                          '.*?title="(.*?)"' +
@@ -29,23 +30,23 @@ def parse_one_page(html):
                          '.*?Bathrooms</span></dt> <dd>(\d+)<', re.S)
     items = re.findall(pattern, html)
 
-
-
     # 格式化，变成字典
     for item in items:
         yield {
             'urlDetail': 'https://www.realestate.com.au' + item[0],
-            'housePic': item[1],
-            'agentPic': item[2],
-            'agent': item[3],
-            'price': item[4],
-            'location': item[5],
-            'bed': item[6],
-            'bathroom': item[7]
+            'houseType': item[1],
+            'housePic': item[2],
+            'agentPic': item[3],
+            'agent': item[4],
+            'price': item[5],
+            'location': item[6],
+            'bed': item[7],
+            'bathroom': item[8]
         }
 
 
 # 写入文档
+# 文档格式为txt
 # encoding = 'utf-8'
 # ensure_ascii = False
 # 确保写入的是中文而不是ascii码
@@ -54,29 +55,37 @@ def write_to_file(content):
         f.write(json.dumps(content, ensure_ascii = False) + '\n')
         f.close()
 
+
+# 写入文档，格式为CSV
 def write_to_csv(content):
     with open('result.csv', 'a', encoding = 'utf-8') as f:
         f.write(json.dumps(content, ensure_ascii = False) + '\n')
         f.close()
 
-def main(list):
-    url = 'https://www.realestate.com.au/rent/in-melbourne,+vic/list-' + str(list)
-    html = get_one_page(url)
-    parse_one_page(html)
-    i = 0
+
+# 主函数，pagenumber参数表示要获取多少页房源信息
+# 可以增加其他参数，如'所在city'，'邮编'等
+# return a list, which contain house_info tuples
+def gather_information(pageNumber):
+    if pageNumber != 1:
+        pageNumber = 1
     house_info = []
-    for item in parse_one_page(html):
-        # write_to_file(item)
-        house_info.append(item)
-        i = i + 1
+    for currentPage in range(pageNumber):
+        url = 'https://www.realestate.com.au/rent/in-melbourne,+vic/list-' + str(currentPage+1)
+        html = get_one_page(url)
+        parsePage = parse_one_page(html)
+        currentPage += 1
+        i = 0
+        for item in parsePage:
+            write_to_file(item)
+            house_info.append(item)
+            i += 1
     return house_info
 
-# 单进程，速度慢
-# if __name__ == '__main__':
-#     for i in range(100):
-#         main(i)
 
-# 多进程，提升速度
-if __name__ == '__main__':
-    pool = Pool()
-    pool.map(main, [i for i in range(1)])
+# -------------多线程，提升速度，需要修改
+# def info_return(page_number):
+#     pool = Pool()
+#     resultlist = pool.map(gather_information, range(page_number))
+#     write_to_file(resultlist)
+#     return resultlist
