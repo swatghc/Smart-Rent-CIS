@@ -56,7 +56,7 @@ def main(list):
     html = get_one_page(url)
     print(html)
     for item in parse_one_page(html):
-        write_to_file(item)
+        # write_to_file(item)
         return item
 
 # 单进程，速度慢
