@@ -15,12 +15,19 @@ def getData(request):
     print('hahahha')
     data = real_estate_crawler.gather_information(1)
     page = data[0]
-    agent_img=page['agentPic']
-    print(agent_img)
+    agent_name = page['agent']
+    agent_img = page['agentPic']
     house_type = page['houseType']
-    print(house_type)
+    original_link = page['urlDetail']
+    house_img = page['housePic']
+    price = page['price']
+    location = page['location']
+    bed = page['bed']
+    bath = page['bathroom']
     showDataTemplate='webapp/showData.html'
-    return render(request, showDataTemplate, {'page': page, 'agent_img': agent_img, 'house_type': house_type})
+    return render(request, showDataTemplate, {'page': page, 'agent_name': agent_name, 'agent_img': agent_img, 'house_type': house_type,
+                                              'original_link': original_link, 'house_img': house_img, 'price': price,
+                                              'location': location, 'bed': bed, 'bath': bath})
 
 
 def search_basic(request):
