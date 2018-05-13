@@ -13,5 +13,6 @@ urlpatterns = [
     path('search-advanced/',views.search_advanced, name='advancedSearch'),
     path('show-data/', views.getData, name='showData'),
     path('index/about/',views.aboutView, name='about'),
+    path('result/', views.saveToTable, name='showResult')
 
 ]

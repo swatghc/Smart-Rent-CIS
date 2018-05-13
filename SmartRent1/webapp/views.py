@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic import View
 from django.shortcuts import render, get_object_or_404
-from .models import Property
+from .models import Property, Agency, Resource
 from .realestate_crawler import real_estate_crawler
 from django.views.decorators import csrf
 
@@ -56,28 +56,55 @@ def search_advanced(request):
         return render(request,searchResultTemplate,{'advanced_input':advanced_input})
 
 def saveToTable(request) :
-    propertyInLine = real_estate_crawler.gather_information(1, 'melbourne')
-    print(propertyInLine)
-    size = len(propertyInLine)
-    pList = [None]*size
-    # pList is the list of properties in the format of objects. the objects have the attributes such as address and rulDetail
-
-    for i in range(0, size-1):
-        propertyItem = propertyInLine[i]
+    crawled_info = real_estate_crawler.gather_information(1, 'melbourne')
+    size = len(crawled_info)
+    pList = []
+    aList = []
+    rList = []
+    for i in range(0, size):
+        feature = crawled_info[i]
         pList.append(Property())
-        pList[i].urlDetail = propertyItem['urlDetail']
-        pList[i].address = propertyItem['location']
-        #Don't forget houseType
+        aList.append(Agency())
+        rList.append(Resource())
+        pList[i].address = feature['location']
+        pList[i].house_img = feature['housePic']
+        pList[i].loc_rating = 5
+        pList[i].fac_rating = 5
+        pList[i].tran_rating = 5
+        pList[i].comment = 'good'
+        pList[i].no_bed = feature['bed']
+        pList[i].no_bath = feature['bathroom']
+        pList[i].house_type = feature['houseType']
+        print("ppppla", pList[i])
         pList[i].save()
+        print('p is saved')
 
-    return pList
+        aList[i].name = feature['agentPeople']
+        aList[i].agent_img = feature['agentPic']
+        aList[i].company = feature['agentCompany']
+        aList[i].company_logo = 'https://www.siasat.com/wp-content/uploads/2017/11/real-estate.jpg'
+        aList[i].fri_rating = 5
+        aList[i].res_rating = 5
+        aList[i].bond_rating = 5
+        aList[i].comment = 'good'
+        print("aaaala", aList[i])
+        aList[i].save()
+        print('a is saved')
+
+        #rList[i].property
+        #rList[i].agency =
+        rList[i].link = feature['urlDetail']
+        rList[i].price = feature['price']
+        print("rrrrla", rList[i])
+        rList[i].save()
+        print('r is saved')
+
+    showResultTemplate = 'webapp/showResult.html'
+    return render(request, showResultTemplate, {'crawled_info':crawled_info})
 
 def aboutView(request):
     return render(request,'webapp/about.html')
 
 
-def handleBasicInput(input):
-    data = real_estate_crawler.gather_information(1)
-    result = m
 
 
