@@ -63,26 +63,29 @@ def write_to_csv(content):
         f.close()
 
 
-# 主函数，pagenumber参数表示要获取多少页房源信息
-# 可以增加其他参数，如'所在city'，'邮编'等
-# return a list, which contain house_info tuples
-def gather_information(pageNumber):
+# 返回房源信息，需要输入两个参数：
+#   pagenumber参数表示要获取多少页房源信息
+#   cityName参数表示搜索的区域
+# 可以增加其他参数，如'邮编'等
+# return a list, which contain house_info （dictionary type)
+def gather_information(pageNumber, cityName):
     if pageNumber != 1:
         pageNumber = 1
     house_info = []
     for currentPage in range(pageNumber):
-        url = 'https://www.realestate.com.au/rent/in-melbourne,+vic/list-' + str(currentPage+1)
+        url = 'https://www.realestate.com.au/rent/in-' + cityName + ',+vic/list-' + str(currentPage+1)
         html = get_one_page(url)
         parsePage = parse_one_page(html)
         currentPage += 1
         i = 0
         for item in parsePage:
-            write_to_file(item)
+            # write_to_file(item)
             house_info.append(item)
             i += 1
+    print(house_info)
     return house_info
 
-
+# gather_information(1, 'melbourne')
 # -------------多线程，提升速度，需要修改
 # def info_return(page_number):
 #     pool = Pool()
