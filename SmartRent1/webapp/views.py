@@ -98,6 +98,20 @@ def saveToTable(request) :
     showResultTemplate = 'webapp/showResult.html'
     return render(request, showResultTemplate, {'crawled_info':crawled_info})
 
+def queryTable(request):
+    rr = Resource.objects.filter(price__lt=500)
+    print(rr)
+    # rr_filtered = rr.values()
+    # print(rr_filtered)
+    # for eachrr in rr:
+    #     eachpp = eachrr.property_set.all()
+    #     print(eachpp)
+    # ppReady = pp.filter(address__contains='1').filter(no_bed__contains='2')
+    # print(ppReady)
+    showQuery = 'webapp/showQuery.html'
+    return render(request, showQuery)
+
+
 def aboutView(request):
     return render(request,'webapp/about.html')
 

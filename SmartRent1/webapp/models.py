@@ -36,5 +36,5 @@ class Resource(models.Model):
     price = models.CharField(max_length=20)
 
     # def __str__(self):
-    #     return '%s %s' % (self.property, self.agency)
+    #     return 'Address: %s. || Agency: %s. || Price: %s.' % (self.property, self.agency, self.price)
 
