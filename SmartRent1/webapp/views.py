@@ -13,7 +13,7 @@ def indexView(request):
 
 def getData(request):
     print('hahahha')
-    data = real_estate_crawler.gather_information(1)
+    data = real_estate_crawler.gather_information(1, 'melbourne')
     page = data[0]
     agent_name = page['agent']
     agent_img = page['agentPic']
@@ -56,7 +56,7 @@ def search_advanced(request):
         return render(request,searchResultTemplate,{'advanced_input':advanced_input})
 
 def saveToTable(request) :
-    propertyInLine = real_estate_crawler.gather_information(1)
+    propertyInLine = real_estate_crawler.gather_information(1, 'melbourne')
     print(propertyInLine)
     size = len(propertyInLine)
     pList = [None]*size
