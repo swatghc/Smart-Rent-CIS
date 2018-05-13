@@ -12,5 +12,6 @@ urlpatterns = [
     path('search-basic/',views.search_basic, name='basicSearch'),
     path('search-advanced/',views.search_advanced, name='advancedSearch'),
     path('show-data/', views.getData, name='showData'),
+    path('index/about/',views.aboutView, name='about'),
 
 ]

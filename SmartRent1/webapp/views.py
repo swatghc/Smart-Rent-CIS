@@ -37,7 +37,7 @@ def search_basic(request):
         print(searhInput)
         print('--------------')
 
-        searchResultTemplate='webapp/searchBasic.html'
+        searchResultTemplate='webapp/searchBasic1.html'
 
         return render(request,searchResultTemplate,{'searhInput':searhInput})
 
@@ -71,3 +71,13 @@ def saveToTable(request) :
         pList[i].save()
 
     return pList
+
+def aboutView(request):
+    return render(request,'webapp/about.html')
+
+
+def handleBasicInput(input):
+    data = real_estate_crawler.gather_information(1)
+    result = m
+
+
