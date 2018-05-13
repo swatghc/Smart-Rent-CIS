@@ -75,9 +75,7 @@ def saveToTable(request) :
         pList[i].no_bed = feature['bed']
         pList[i].no_bath = feature['bathroom']
         pList[i].house_type = feature['houseType']
-        print("ppppla", pList[i])
         pList[i].save()
-        print('p is saved')
 
         aList[i].name = feature['agentPeople']
         aList[i].agent_img = feature['agentPic']
@@ -87,16 +85,14 @@ def saveToTable(request) :
         aList[i].res_rating = 5
         aList[i].bond_rating = 5
         aList[i].comment = 'good'
-        print("aaaala", aList[i])
         aList[i].save()
-        print('a is saved')
 
-        #rList[i].property
-        #rList[i].agency =
+        rList[i].property = pList[i]
+        rList[i].agency = aList[i]
         rList[i].link = feature['urlDetail']
         rList[i].price = feature['price']
-        print("rrrrla", rList[i])
         rList[i].save()
+        print(rList[i])
         print('r is saved')
 
     showResultTemplate = 'webapp/showResult.html'

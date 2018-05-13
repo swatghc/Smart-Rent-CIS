@@ -33,5 +33,8 @@ class Resource(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
     link = models.URLField(max_length=200)
-    price = models.IntegerField()
+    price = models.CharField(max_length=20)
+
+    # def __str__(self):
+    #     return '%s %s' % (self.property, self.agency)
 
