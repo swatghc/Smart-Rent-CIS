@@ -23,8 +23,10 @@ def parse_one_page(html):
                          '.*?property-(.*?)-'
                          '.*?data-src="(.*?)"' +
                          '.*?agent-photo" src="(.*?)"' +
-                         '.*?title="(.*?)"' +
-                         '.*?priceText">(.*?)<' +
+                         '.*?title="(.*?),' +
+                         '\s(.*?)"' +
+                         # '.*?priceText">(.*?)<' +
+                         '.*?"priceText">\$(\d.*?\d+).*?</p>' +     ### get price; type = int
                          '.*?listingName.>(.*?)<' +
                          '.*?Bedrooms</span></dt> <dd>(\d+)<' +
                          '.*?Bathrooms</span></dt> <dd>(\d+)<', re.S)
@@ -37,11 +39,12 @@ def parse_one_page(html):
             'houseType': item[1],
             'housePic': item[2],
             'agentPic': item[3],
-            'agent': item[4],
-            'price': item[5],
-            'location': item[6],
-            'bed': item[7],
-            'bathroom': item[8]
+            'agentPeople': item[4],
+            'agentCompany': item[5],
+            'price': item[6],
+            'location': item[7],
+            'bed': item[8],
+            'bathroom': item[9]
         }
 
 
@@ -69,7 +72,7 @@ def write_to_csv(content):
 # 可以增加其他参数，如'邮编'等
 # return a list, which contain house_info （dictionary type)
 def gather_information(pageNumber, cityName):
-    if pageNumber != 1:
+    if pageNumber <= 1:
         pageNumber = 1
     house_info = []
     for currentPage in range(pageNumber):
@@ -82,10 +85,10 @@ def gather_information(pageNumber, cityName):
             # write_to_file(item)
             house_info.append(item)
             i += 1
-    print(house_info)
+    # print(house_info)
     return house_info
 
-# gather_information(1, 'melbourne')
+gather_information(1, 'melbourne')
 # -------------多线程，提升速度，需要修改
 # def info_return(page_number):
 #     pool = Pool()
