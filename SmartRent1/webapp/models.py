@@ -10,6 +10,7 @@ class Property(models.Model):
     comment=models.CharField(max_length=20, blank=True)
     no_bed = models.IntegerField(blank=True)
     no_bath = models.IntegerField(blank=True)
+    # house_Type = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return self.address

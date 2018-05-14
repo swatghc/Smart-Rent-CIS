@@ -38,9 +38,13 @@ def search_basic(request):
         print(searhInput)
         print('--------------')
 
-        searchResultTemplate='webapp/searchBasic1.html'
+        result_basic = Resource.objects.filter(property__address__contains=str(searhInput)).select_related('property').select_related('agency')
+        # for each in result_basic:
+        #     print(each.price + '   ' + str(each.property.no_bed))
 
-        return render(request,searchResultTemplate,{'searhInput':searhInput})
+        searchResultTemplate='webapp/searchBasic.html'
+        # return render(request,searchResultTemplate,{'searhInput':searhInput})
+        return render(request, searchResultTemplate, {'result_basic': result_basic})
 
 def search_advanced(request):
     if request.POST:
@@ -50,11 +54,21 @@ def search_advanced(request):
             'maxPrice': request.POST['max-price'],
             'bedNum': request.POST['bed-num']
         }
+
+        # result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(property__house_Type__exact=advanced_input['houseType']).filter(
+        #     propertyproperty__no_bed__exact=advanced_input['bedNum']).select_related('agency')
+        result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(
+            propertyproperty__no_bed__exact=advanced_input['bedNum']).select_related('agency')
+        # print(result_advanced)
+        # for each in result_advanced:
+        #     print(each.price + '   ' + str(each.property.no_bed))
+
         print('***************')
         print(advanced_input)
         print('***************')
         searchResultTemplate = 'webapp/searchAdvanced.html'
-        return render(request,searchResultTemplate,{'advanced_input':advanced_input})
+        # return render(request,searchResultTemplate,{'advanced_input':advanced_input})
+        return render(request, searchResultTemplate, {'result_advanced': result_advanced})
 
 def saveToTable(request) :
     crawled_info = real_estate_crawler.gather_information(1, 'melbourne')
@@ -100,8 +114,15 @@ def saveToTable(request) :
     return render(request, showResultTemplate, {'crawled_info':crawled_info})
 
 def queryTable(request):
-    rr = Resource.objects.filter(price__lt=500)
-    print(rr)
+    # rr = Resource.objects.filter(price__lt=500)
+
+    # ---------------------------------
+    # rr = Resource.objects.filter(price__lt=500).select_related('property').select_related('agency').filter(propertyproperty__no_bed__exact=2)
+    # print(rr)
+    # for each in rr:
+    #     print(each.price +'   ' + str(each.property.no_bed))
+    # ---------------------------------
+
     # rr_filtered = rr.values()
     # print(rr_filtered)
     # for eachrr in rr:
