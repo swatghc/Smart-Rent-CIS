@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Property
 from .realestate_crawler import real_estate_crawler
 from django.views.decorators import csrf
+from .models import Property,Agency,Resource
 
 # Create your views here.
 def indexView(request):
@@ -74,6 +75,10 @@ def saveToTable(request) :
 
 def aboutView(request):
     return render(request,'webapp/about.html')
+
+def detailView(request,property_id):
+    resource = get_object_or_404(Resource,pk=property_id)
+    return render(request,'webapp/detail.html',{'resource':resource})
 
 
 def handleBasicInput(input):
