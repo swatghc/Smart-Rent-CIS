@@ -42,9 +42,9 @@ def search_basic(request):
         # for each in result_basic:
         #     print(each.price + '   ' + str(each.property.no_bed))
 
-        searchResultTemplate='webapp/searchBasic.html'
-        # return render(request,searchResultTemplate,{'searhInput':searhInput})
+        searchResultTemplate = 'webapp/searchBasic.html'
         return render(request, searchResultTemplate, {'result_basic': result_basic})
+
 
 def search_advanced(request):
     if request.POST:
@@ -137,9 +137,10 @@ def queryTable(request):
 def aboutView(request):
     return render(request,'webapp/about.html')
 
-def detailView(request,property_id):
-    resource = get_object_or_404(Resource,pk=property_id)
+def detailView(request,id):
+    resource = get_object_or_404(Resource,pk=id)
     return render(request,'webapp/detail.html',{'resource':resource})
+
 
 
 

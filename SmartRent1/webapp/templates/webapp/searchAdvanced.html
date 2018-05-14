@@ -64,14 +64,14 @@ a {
 
 
 
-
 /**** MEDIA QUERIES ****/
 @media only screen and (max-width: 991px) {
     #property-listings .property-listing {
         padding: 5px!important;
     }
     #property-listings .property-listing a {
-        margin: 0;
+{#        margin: 0;#}
+        margin: auto;
     }
     #property-listings .property-listing .media-body {
         padding: 10px;
@@ -93,14 +93,17 @@ a {
         <div class="container container-pad" id="property-listings">
 
 
+
+
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-lg-6 col-sm-6">
 
-                    <!-- Begin Listing: 609 W GRAVERS LN-->
+                    {% for resource in result_advanced  %}
+                                            <!-- Begin Listing: 609 W GRAVERS LN-->
                     <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
                         <div class="media">
                             <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg"></a>
+                            <img alt="image" class="img-responsive" src="{{ resource.property.house_img }}"></a>
 
                             <div class="clearfix visible-sm"></div>
 
@@ -108,67 +111,56 @@ a {
                                 <a href="#" target="_parent"></a>
 
                                 <h4 class="media-heading">
-                                  <a href="#" target="_parent">$1,975,000 <small class="pull-right">609 W Gravers Ln</small></a></h4>
+                                  <a href="#" target="_parent">${{ resource.price }} <small class="pull-right">{{ resource.property.address }}</small></a></h4>
 
 
                                 <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>4,820 SqFt</li>
+
+
+                                    <li>{{ resource.property.no_bed }}  Beds</li>
 
                                     <li style="list-style: none">|</li>
 
-                                    <li>5 Beds</li>
+                                    <li>{{ resource.property.no_bath }}  Baths</li>
 
                                     <li style="list-style: none">|</li>
 
-                                    <li>5 Baths</li>
+                                    <li>Agent: {{ resource.agency.name }}</li>
+
+
                                 </ul>
 
-                                <p class="hidden-xs">Situated between fairmount
-                                park and the prestigious philadelphia cricket
-                                club, this beautiful 2+ acre property is truly
-                                ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox & Roach-Chestnut Hill
-                                Evergreen</span>
                             </div>
-                        </div>
-                    </div><!-- End Listing-->
 
-                    <!-- Begin Listing: 218 LYNNEBROOK LN-->
-                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
-                        <div class="media">
-                            <a class="pull-left" href="#" target="_parent">
-                            <img alt="image" class="img-responsive" src="http://images.prd.mris.com/image/V2/1/zMjCkcFeFDXDAP8xDhbD9ZmrVL7oGkBvSnh2bDBZ6UB5UHXa3_g8c6XYhRY_OxgGaMBMehiTWXDSLzBMaIzRhA.jpg"></a>
-
-                            <div class="clearfix visible-sm"></div>
-
-                            <div class="media-body fnt-smaller">
-                                <a href="#" target="_parent"></a>
-
-                                <h4 class="media-heading">
-                                  <a href="#" target="_parent">$1,975,000 <small class="pull-right">218 Lynnebrook Ln</small></a></h4>
-
-
-                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                    <li>6,959 SqFt</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>6 Beds</li>
-
-                                    <li style="list-style: none">|</li>
-
-                                    <li>5 Baths</li>
-                                </ul>
-
-                                <p class="hidden-xs">Impressively positioned
-                                overlooking 3.5 captivating acres, designated
-                                as "significant" by the chestnut hill
-                                historical s...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox & Roach-Blue Bell</span>
+                            <div>
+                                <p>Property Ratings: {{resource.property.loc_rating  }}</p>
+                                <p>Agent Ratings: {{resource.agency.fri_rating  }}</p>
                             </div>
+
+
+                            <hr>
+
+                            <button class="btn-danger" name="{{ resource.property.address }}"> Detail</button>
+{#                            todo select serach result, and go to the detail page#}
+{#                            <a href="{% url 'webapp:detail' resource.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>#}
                         </div>
                     </div><!-- End Listing-->
 
 
-                </div><!-- End Col -->
+                    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
 
             </div><!-- End row -->
 
