@@ -14,7 +14,7 @@ def indexView(request):
 
 def getData(request):
     print('hahahha')
-    data = real_estate_crawler.gather_information(1, 'melbourne')
+    data = real_estate_crawler.gather_information(10, 'melbourne')
     page = data[0]
     agent_name = page['agent']
     agent_img = page['agentPic']
@@ -39,6 +39,7 @@ def search_basic(request):
         print('--------------')
 
         result_basic = Resource.objects.filter(property__address__contains=str(searhInput)).select_related('property').select_related('agency')
+        # result_basic = result_basic.distinct(result_basic,result_basic.property.address)
         # for each in result_basic:
         #     print(each.price + '   ' + str(each.property.no_bed))
 
@@ -55,13 +56,13 @@ def search_advanced(request):
             'bedNum': request.POST['bed-num']
         }
 
-        # result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(property__house_Type__exact=advanced_input['houseType']).filter(
+        result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(property__house_type__exact=advanced_input['houseType']).filter(
+            property__no_bed__exact=advanced_input['bedNum']).select_related('agency')
+        # result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(
         #     propertyproperty__no_bed__exact=advanced_input['bedNum']).select_related('agency')
-        result_advanced = Resource.objects.filter(price__lt=advanced_input['maxPrice']).select_related('property').filter(
-            propertyproperty__no_bed__exact=advanced_input['bedNum']).select_related('agency')
-        # print(result_advanced)
-        # for each in result_advanced:
-        #     print(each.price + '   ' + str(each.property.no_bed))
+        print(result_advanced)
+        for each in result_advanced:
+            print(each.price + '   ' + str(each.property.no_bed)+'   ' + str(each.property.house_type))
 
         print('***************')
         print(advanced_input)
@@ -71,7 +72,7 @@ def search_advanced(request):
         return render(request, searchResultTemplate, {'result_advanced': result_advanced})
 
 def saveToTable(request) :
-    crawled_info = real_estate_crawler.gather_information(1, 'melbourne')
+    crawled_info = real_estate_crawler.gather_information(10, 'melbourne')
     size = len(crawled_info)
     pList = []
     aList = []
