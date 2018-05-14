@@ -14,6 +14,7 @@ urlpatterns = [
     path('show-data/', views.getData, name='showData'),
     path('index/about/',views.aboutView, name='about'),
     path('result/', views.saveToTable, name='showResult'),
-    path('query/', views.queryTable, name='showQuery')
+    path('query/', views.queryTable, name='showQuery'),
+    path('<int:pk>/',views.detailView,name='detail'),
 
 ]
