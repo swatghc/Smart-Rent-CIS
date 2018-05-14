@@ -1,6 +1,6 @@
 {% extends 'webapp/base.html' %}
 
-{% block title %}Advanced Search Result Page {% endblock %}
+{% block title %}Basic Search Result Page {% endblock %}
 
 {% block body %}
 
@@ -94,7 +94,7 @@ a {
 
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-lg-6 col-sm-6">
 
                     <!-- Begin Listing: 609 W GRAVERS LN-->
                     <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
@@ -129,6 +129,10 @@ a {
                                 ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox & Roach-Chestnut Hill
                                 Evergreen</span>
                             </div>
+
+                            <button class="btn-danger" name="{{ property.address }}"> Detail</button>
+{#                            todo select serach result, and go to the detail page#}
+{#                            <a href="{% url 'webapp:detail' resource.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>#}
                         </div>
                     </div><!-- End Listing-->
 
@@ -167,8 +171,82 @@ a {
                         </div>
                     </div><!-- End Listing-->
 
+                    <!-- Begin Listing: 209 CHESTNUT HILL AVE-->
+                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
+                        <div class="media">
+                            <a class="pull-left" href="#" target="_parent">
+                            <img alt="image" class="img-responsive" src="http://images.prd.mris.com/image/V2/1/iwn7qH9r9OPnqTaTTxxb8PBzQHk2EiHU2PBBntt041AZsVsGY-SeUexTMLgRcYSJukrKOwHaYnTVXAsk6RdSmA.jpg"></a>
 
-                </div><!-- End Col -->
+                            <div class="clearfix visible-sm"></div>
+
+                            <div class="media-body fnt-smaller">
+                                <a href="#" target="_parent"></a>
+
+                                <h4 class="media-heading">
+                                  <a href="#" target="_parent">$1,599,999 <small class="pull-right">209 Chestnut Hill ve</small></a></h4>
+
+
+                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                    <li>16,581 SqFt</li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li>8 Beds</li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li>4 Baths</li>
+                                </ul>
+
+                                <p class="hidden-xs">Built in 1909 by
+                                pittsburgh steel magnate henry a. laughlin,
+                                greylock is a classic chestnut hill stone
+                                mansion once cons...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of ng and Foster-Devon</span>
+                            </div>
+                        </div>
+                    </div><!-- End Listing-->
+
+                    <!-- Begin Listing: 704 SAINT GEORGES ST-->
+                    <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing">
+                        <div class="media">
+                            <a class="pull-left" href="#" target="_parent">
+                            <img alt="image" class="img-responsive" src="http://images.prd.mris.com/image/V2/1/7IZk2HTN0AcHnIb7VCvisTUc3kTbn0UyHQlVAlwkNLM3_8UNN8pcgy9u6KVNoRGGH_kdUlpYehdbqzctRNUebg.jpg"></a>
+
+                            <div class="clearfix visible-sm"></div>
+
+                            <div class="media-body fnt-smaller">
+                                <a href="#" target="_parent"></a>
+
+                                <h4 class="media-heading">
+                                  <a href="#" target="_parent">$1,595,000 <small class="pull-right">704 Saint Georges St</small></a></h4>
+
+
+                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                    <li>0 SqFt</li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li>4 Beds</li>
+
+                                    <li style="list-style: none">|</li>
+
+                                    <li>5 Baths</li>
+                                </ul>
+
+                                <p class="hidden-xs">Blake development is proud
+                                to offer the second of two distinctly unique
+                                homes located on one of the most desirable
+                                stree...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox & Roach-Chestnut Hill
+                                Evergreen</span>
+                            </div>
+                        </div>
+                    </div><!-- End Listing-->
+
+
+
+                </div>
+
+
 
             </div><!-- End row -->
 
