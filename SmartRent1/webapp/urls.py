@@ -15,6 +15,6 @@ urlpatterns = [
     path('index/about/',views.aboutView, name='about'),
     path('result/', views.saveToTable, name='showResult'),
     path('query/', views.queryTable, name='showQuery'),
-    path('<int:pk>/',views.detailView,name='detail'),
+    path('<int:id>/',views.detailView,name='detail'),
 
 ]

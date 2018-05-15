@@ -82,13 +82,13 @@ def gather_information(pageNumber, cityName):
         currentPage += 1
         i = 0
         for item in parsePage:
-            # write_to_file(item)
+            write_to_file(item)
             house_info.append(item)
             i += 1
     # print(house_info)
     return house_info
 
-gather_information(1, 'melbourne')
+# gather_information(1, 'melbourne')
 # -------------多线程，提升速度，需要修改
 # def info_return(page_number):
 #     pool = Pool()
