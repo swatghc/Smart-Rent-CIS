@@ -12,25 +12,6 @@ def indexView(request):
     template_name = "webapp/index.html"
     return render(request,template_name)
 
-def getData(request):
-    print('hahahha')
-    data = real_estate_crawler.gather_information(10, 'melbourne')
-    page = data[0]
-    agent_name = page['agent']
-    agent_img = page['agentPic']
-    house_type = page['houseType']
-    original_link = page['urlDetail']
-    house_img = page['housePic']
-    price = page['price']
-    location = page['location']
-    bed = page['bed']
-    bath = page['bathroom']
-    showDataTemplate='webapp/showData.html'
-    return render(request, showDataTemplate, {'page': page, 'agent_name': agent_name, 'agent_img': agent_img, 'house_type': house_type,
-                                              'original_link': original_link, 'house_img': house_img, 'price': price,
-                                              'location': location, 'bed': bed, 'bath': bath})
-
-
 def search_basic(request):
     if request.POST:
         searhInput = request.POST['basic-input']
@@ -45,7 +26,6 @@ def search_basic(request):
 
         searchResultTemplate = 'webapp/searchBasic.html'
         return render(request, searchResultTemplate, {'result_basic': result_basic})
-
 
 def search_advanced(request):
     if request.POST:
@@ -113,27 +93,6 @@ def saveToTable(request) :
 
     showResultTemplate = 'webapp/showResult.html'
     return render(request, showResultTemplate, {'crawled_info':crawled_info})
-
-def queryTable(request):
-    # rr = Resource.objects.filter(price__lt=500)
-
-    # ---------------------------------
-    # rr = Resource.objects.filter(price__lt=500).select_related('property').select_related('agency').filter(propertyproperty__no_bed__exact=2)
-    # print(rr)
-    # for each in rr:
-    #     print(each.price +'   ' + str(each.property.no_bed))
-    # ---------------------------------
-
-    # rr_filtered = rr.values()
-    # print(rr_filtered)
-    # for eachrr in rr:
-    #     eachpp = eachrr.property_set.all()
-    #     print(eachpp)
-    # ppReady = pp.filter(address__contains='1').filter(no_bed__contains='2')
-    # print(ppReady)
-    showQuery = 'webapp/showQuery.html'
-    return render(request, showQuery)
-
 
 def aboutView(request):
     return render(request,'webapp/about.html')
